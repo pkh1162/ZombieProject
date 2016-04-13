@@ -1,0 +1,48 @@
+package pkh1162.model;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Military_Installation implements Location {
+
+	private List<Item> itemList;
+	private Randomness random = new Randomness();
+	private int inherentDamage;
+
+	public Military_Installation(){
+		this.itemList = new ArrayList<Item>();
+		
+		this.inherentDamage = 20;
+		
+		itemList.add(new Ammo());
+		itemList.add(new Ammo());
+		itemList.add(new Ammo());
+		itemList.add(new Meds());
+		itemList.add(new Food());
+		}
+
+	@Override
+	public void itemPass(ArrayList<Item> list) {
+		
+		list.addAll(itemList);
+		System.out.println(itemList + " has been added to inventory");
+		
+	}
+
+	@Override
+	public void hurtPlayer(Settler getter) {
+		int damage = random.locationDamage(getter.getExp());
+		int newHealth = getter.getHealth() - (damage + inherentDamage);
+		System.out.print("DAMAGE = " + damage + ",\t ");
+		getter.setHealth(newHealth);
+
+	}
+
+	@Override
+	public String toString() {
+		return "Military Installation [itemList=" + itemList + "]";
+	}
+	
+	
+
+}
